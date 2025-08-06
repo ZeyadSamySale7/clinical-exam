@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Patients - Dr. Ahmed Samy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* 🔁 Reset + Base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #121e26, #1f2e35);
+      color: #e4e4e4;
+      padding: 40px;
+      text-align: left;
+      line-height: 1.6;
+    }
+
+    /* 🌐 Container */
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px;
+      background: #1b2a33;
+      border-radius: 12px;
+      box-shadow: 0 0 30px rgba(18, 103, 194, 0.1);
+      border: 1px solid #2f4a55;
+    }
+
+    /* 🏷️ Headings */
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 32px;
+      color: #00e5ff;
+      text-shadow: 1px 1px 4px rgba(0, 229, 255, 0.3);
+    }
+
+    h2 {
+      color: #b0e0ff;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #00bcd4;
+      padding-bottom: 5px;
+    }
+
+    /* 🧾 Cards */
+    .card {
+      background: #22343d;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(0, 123, 255, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid #3188a5;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+    }
+
+    /* 🧾 Form Labels */
+    label {
+      display: block;
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #5fffea;
+    }
+
+    /* 🧾 Inputs + Textarea */
+    input, select, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      background: #2c3e47;
+      color: #fff;
+      border: 1px solid #2b9abe;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: 0.3s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #00e5ff;
+      background: #376274;
+    }
+
+    /* 🧾 Textarea */
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* ✅ Actions */
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 20px;
+    }
+
+    /* 🔘 Buttons */
+    .btn {
+      padding: 14px 28px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-weight: bold;
+    }
+
+    /* Primary Button */
+    .btn-primary {
+      background: linear-gradient(135deg, #00bcd4, #007BFF);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(0, 123, 255, 0.4);
+    }
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0, 123, 255, 0.6);
+    }
+
+    /* Secondary Button */
+    .btn-secondary {
+      background: linear-gradient(135deg, #4CAF50, #2e7d32);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(76, 175, 80, 0.3);
+    }
+    .btn-secondary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(76, 175, 80, 0.5);
+    }
+
+    /* Delete Button */
+    .btn-delete {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(231, 76, 60, 0.3);
+    }
+    .btn-delete:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(231, 76, 60, 0.5);
+    }
+
+    /* 📱 Responsive */
+    @media (max-width: 600px) {
+      body {
+        padding: 20px;
+      }
+      .container {
+        padding: 20px;
+      }
+      .actions {
+        flex-direction: column;
+      }
+      .actions .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    /* 🔘 Radio Group */
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 8px;
+      padding: 10px;
+      background: #2c3e47;
+      border: 1px solid #487c8d;
+      border-radius: 6px;
+    }
+
+    .radio-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .radio-item input[type="radio"] {
+      accent-color: #00e5ff;
+      transform: scale(1.2);
+      cursor: pointer;
+    }
+
+    .radio-item label {
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    /* Patient Cards Specific Styles */
+    .patient-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .patient-card {
+      position: relative;
+      padding-bottom: 60px;
+    }
+
+    .patient-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .info-item {
+      margin-bottom: 8px;
+      font-size: 0.95rem;
+    }
+
+    .info-item strong {
+      color: #5fffea;
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-weight: bold;
+      color: #00e5ff;
+      margin: 20px 0 10px;
+      font-size: 1.1em;
+      border-left: 4px solid #00bcd4;
+      padding-left: 10px;
+    }
+
+    .system-exam {
+      background: #2c3e47;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #3188a5;
+    }
+
+    .no-patients {
+      text-align: center;
+      color: #777;
+      padding: 50px;
+      background: #22343d;
+      border-radius: 8px;
+      width: 100%;
+      grid-column: 1 / -1;
+    }
+
+    .timestamp {
+      text-align: right;
+      color: #7f8c8d;
+      font-size: 0.85em;
+      margin-top: 15px;
+    }
+
+    .patient-actions {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .patient-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1><i class="fas fa-users"></i> All Patients</h1>
+
+    <input type="text" id="searchInput" placeholder="🔍 Search by patient name or medical record number..." />
+
+    <div class="patient-container" id="patients-list">
+      <!-- Patient cards will be inserted here -->
+    </div>
+  </div>
+
+  <script>
+    // Get patients data from localStorage
+    let patients = JSON.parse(localStorage.getItem('patients') || []);
+    const listDiv = document.getElementById('patients-list');
+    const searchInput = document.getElementById('searchInput');
+
+    // Function to delete a patient
+    function deletePatient(index) {
+      if (confirm('Are you sure you want to delete this patient record?')) {
+        patients.splice(index, 1);
+        localStorage.setItem('patients', JSON.stringify(patients));
+        renderPatients();
+      }
+    }
+
+    // Function to render patient cards
+    function renderPatients(filteredPatients = patients) {
+      listDiv.innerHTML = '';
+
+      if (filteredPatients.length === 0) {
+        listDiv.innerHTML = `
+          <div class="no-patients">
+            <i class="fas fa-user-injured" style="font-size: 3em; color: #487c8d; margin-bottom: 15px;"></i>
+            <p>No patients found in records</p>
+          </div>`;
+        return;
+      }
+
+      filteredPatients.forEach((patient, index) => {
+        const card = document.createElement('div');
+        card.className = 'patient-card';
+        
+        // Basic Info
+        let cardHTML = `
+          <h2><i class="fas fa-user"></i> ${patient.full_name || 'Unnamed Patient'}</h2>
+          <div class="patient-info">
+            <div class="info-item"><strong><i class="fas fa-id-card"></i> MRN:</strong> ${patient.medical_record_no || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-birthday-cake"></i> Age:</strong> ${patient.age || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-venus-mars"></i> Gender:</strong> ${patient.gender || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-phone"></i> Phone:</strong> ${patient.phone || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-home"></i> Address:</strong> ${patient.address || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-map-marker-alt"></i> Residence:</strong> ${patient.residence || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-briefcase"></i> Occupation:</strong> ${patient.occupation || 'N/A'}</div>
+            <div class="info-item"><strong><i class="fas fa-heart"></i> Marital Status:</strong> ${patient.marital_status || 'N/A'}</div>
+          </div>`;
+
+        // Admission Details
+        cardHTML += `
+          <div class="section-title"><i class="fas fa-procedures"></i> Admission Details</div>
+          <div class="patient-info">
+            <div class="info-item"><strong>Type:</strong> ${patient.admission_type || 'N/A'}</div>
+            <div class="info-item"><strong>Via:</strong> ${patient.admission_via || 'N/A'}</div>
+            <div class="info-item"><strong>Date:</strong> ${patient.admission_date || 'N/A'} ${patient.admission_time || ''}</div>
+            <div class="info-item"><strong>Exam Date:</strong> ${patient.examination_date || 'N/A'}</div>
+          </div>`;
+
+        // Chief Complaint
+        if (patient.chief_complaint || patient.complaint_duration) {
+          cardHTML += `
+            <div class="section-title"><i class="fas fa-comment-medical"></i> Chief Complaint</div>
+            <div class="system-exam">
+              <p><strong>Description:</strong> ${patient.chief_complaint || 'Not specified'}</p>
+              <p><strong>Duration:</strong> ${patient.complaint_duration || 'Not specified'}</p>
+            </div>`;
+        }
+
+        // Vital Signs
+        cardHTML += `
+          <div class="section-title"><i class="fas fa-heartbeat"></i> Vital Signs</div>
+          <div class="system-exam">
+            <div class="patient-info">
+              <div class="info-item"><strong>BP:</strong> ${patient.blood_pressure || 'N/A'}</div>
+              <div class="info-item"><strong>HR:</strong> ${patient.heart_rate || 'N/A'} bpm</div>
+              <div class="info-item"><strong>Temp:</strong> ${patient.temperature || 'N/A'} °C</div>
+              <div class="info-item"><strong>RR:</strong> ${patient.respiratory_rate || 'N/A'}</div>
+              <div class="info-item"><strong>SpO₂:</strong> ${patient.oxygen_saturation || 'N/A'}%</div>
+              <div class="info-item"><strong>Weight:</strong> ${patient.weight || 'N/A'} kg</div>
+              <div class="info-item"><strong>Height:</strong> ${patient.height || 'N/A'} cm</div>
+              <div class="info-item"><strong>BMI:</strong> ${patient.bmi || 'N/A'}</div>
+              <div class="info-item"><strong>Pain:</strong> ${patient.pain_score || 'N/A'}/10</div>
+            </div>
+          </div>`;
+
+        // System Exams
+        const systemExams = [
+          {
+            title: "General Appearance",
+            icon: "fas fa-user",
+            fields: [
+              {name: "consciousness_level", label: "Consciousness"},
+              {name: "distress_level", label: "Distress Level"},
+              {name: "posture", label: "Posture"},
+              {name: "gait", label: "Gait"},
+              {name: "nutrition", label: "Nutrition"},
+              {name: "hydration", label: "Hydration"},
+              {name: "facial_expression", label: "Facial Expression"}
+            ]
+          },
+          {
+            title: "Skin & Mucosa",
+            icon: "fas fa-allergies",
+            fields: [
+              {name: "skin_color", label: "Skin Color"},
+              {name: "skin_turgor", label: "Skin Turgor"},
+              {name: "rashes", label: "Rashes"},
+              {name: "scars", label: "Scars"},
+              {name: "cyanosis", label: "Cyanosis"},
+              {name: "clubbing", label: "Clubbing"},
+              {name: "pallor", label: "Pallor"},
+              {name: "icterus", label: "Icterus"},
+              {name: "edema", label: "Edema"},
+              {name: "dehydration", label: "Dehydration"},
+              {name: "skin_lesions", label: "Skin Lesions"}
+            ]
+          },
+          {
+            title: "Cardiovascular System",
+            icon: "fas fa-heart",
+            fields: [
+              {name: "heart_sounds", label: "Heart Sounds"},
+              {name: "murmurs", label: "Murmurs"},
+              {name: "apex_beat", label: "Apex Beat"},
+              {name: "thrills", label: "Thrills"},
+              {name: "heaves", label: "Heaves"},
+              {name: "peripheral_pulses", label: "Peripheral Pulses"},
+              {name: "capillary_refill_time", label: "Capillary Refill"},
+              {name: "jugular_venous_pressure", label: "JVP"}
+            ]
+          },
+          {
+            title: "Respiratory System",
+            icon: "fas fa-lungs",
+            fields: [
+              {name: "chest_movement", label: "Chest Movement"},
+              {name: "trachea_position", label: "Trachea Position"},
+              {name: "percussion_note", label: "Percussion Note"},
+              {name: "vocal_fremitus", label: "Vocal Fremitus"},
+              {name: "vocal_resonance", label: "Vocal Resonance"},
+              {name: "breath_sounds", label: "Breath Sounds"},
+              {name: "added_sounds", label: "Added Sounds"},
+              {name: "chest_pain", label: "Chest Pain"},
+              {name: "cough", label: "Cough"}
+            ]
+          },
+          {
+            title: "Abdomen",
+            icon: "fas fa-stomach",
+            fields: [
+              {name: "abdominal_tenderness", label: "Tenderness"},
+              {name: "abdominal_masses", label: "Masses"},
+              {name: "bowel_sounds", label: "Bowel Sounds"},
+              {name: "organomegaly", label: "Organomegaly"},
+              {name: "ascites", label: "Ascites"},
+              {name: "hernia", label: "Hernia"},
+              {name: "bowel_movement", label: "Bowel Movement"},
+              {name: "liver_palpation", label: "Liver Palpation"},
+              {name: "spleen_palpation", label: "Spleen Palpation"}
+            ]
+          },
+          {
+            title: "Neurological",
+            icon: "fas fa-brain",
+            fields: [
+              {name: "higher_mental_functions", label: "Mental Functions"},
+              {name: "cranial_nerve_assessment", label: "Cranial Nerves"},
+              {name: "motor_function", label: "Motor Function"},
+              {name: "sensory_function", label: "Sensory Function"},
+              {name: "reflexes", label: "Reflexes"},
+              {name: "cerebellar_signs", label: "Cerebellar Signs"},
+              {name: "meningeal_signs", label: "Meningeal Signs"},
+              {name: "neurological_gait", label: "Gait"}
+            ]
+          },
+          {
+            title: "Other Exams",
+            icon: "fas fa-notes-medical",
+            fields: [
+              {name: "musculoskeletal", label: "Musculoskeletal"},
+              {name: "lymph_nodes", label: "Lymph Nodes"},
+              {name: "ent_exam", label: "ENT"},
+              {name: "eye_exam", label: "Eyes"},
+              {name: "oral_cavity", label: "Oral Cavity"},
+              {name: "genitalia_exam", label: "Genitalia"},
+              {name: "rectal_exam", label: "Rectal Exam"}
+            ]
+          }
+        ];
+
+        systemExams.forEach(system => {
+          let hasData = false;
+          let systemHTML = '';
+          
+          system.fields.forEach(field => {
+            if (patient[field.name]) {
+              systemHTML += `<div class="info-item"><strong>${field.label}:</strong> ${patient[field.name]}</div>`;
+              hasData = true;
+            }
+          });
+          
+          if (hasData) {
+            cardHTML += `
+              <div class="section-title"><i class="${system.icon}"></i> ${system.title}</div>
+              <div class="system-exam">
+                <div class="patient-info">${systemHTML}</div>
+              </div>`;
+          }
+        });
+
+        // Notes and Diagnosis
+        if (patient.additional_findings || patient.provisional_diagnosis || patient.plan) {
+          cardHTML += `
+            <div class="section-title"><i class="fas fa-file-medical"></i> Clinical Notes</div>
+            <div class="system-exam">`;
+          
+          if (patient.additional_findings) {
+            cardHTML += `<p><strong>Additional Findings:</strong><br>${patient.additional_findings}</p>`;
+          }
+          if (patient.provisional_diagnosis) {
+            cardHTML += `<p><strong>Provisional Diagnosis:</strong><br>${patient.provisional_diagnosis}</p>`;
+          }
+          if (patient.plan) {
+            cardHTML += `<p><strong>Plan:</strong><br>${patient.plan}</p>`;
+          }
+          
+          cardHTML += `</div>`;
+        }
+
+        // Timestamp
+        cardHTML += `
+          <div class="timestamp">
+            <i class="fas fa-calendar-alt"></i> Record saved: ${patient.dateSaved || 'Unknown date'}
+          </div>`;
+
+        // Action buttons
+        cardHTML += `
+          <div class="patient-actions">
+            <button class="btn btn-delete" onclick="deletePatient(${index})">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>`;
+
+        card.innerHTML = cardHTML;
+        listDiv.appendChild(card);
+      });
+    }
+
+    // Live search functionality
+    searchInput.addEventListener('input', () => {
+      const keyword = searchInput.value.toLowerCase();
+      const filtered = patients.filter(p => 
+        (p.full_name || '').toLowerCase().includes(keyword) ||
+        (p.medical_record_no || '').toLowerCase().includes(keyword)
+      );
+      renderPatients(filtered);
+    });
+
+    // Initial render
+    renderPatients();
+  </script>
+</body>
+</html>

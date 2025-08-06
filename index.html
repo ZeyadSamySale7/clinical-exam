@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clinical Exam - Dr. Ahmed Samy</title>
+    <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+ 
+</head>
+<body>
+
+  <header>
+    <h1><i class="fas fa-user-md"></i> Patient Examination System</h1>
+    <p style="text-align: center; font-size: 0.95rem; color: #c0e245;">
+      Designed by Dr. Ahmed Samy's Clinic
+    </p>
+  </header>
+
+  <div class="container">
+    <h1>Clinical Examination Form</h1>
+    <form id="patient-form">
+      <!-- Basic Info -->
+      <section class="card">
+        <h2>Basic Patient Info</h2>
+        <label class="required-field">Full Name</label>
+        <input type="text" name="full_name" required />
+        
+        <label>Age</label>
+        <input type="number" name="age" />
+        
+        <label class="required-field">Gender</label>
+        <select name="gender" required>
+          <option value="">Select</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        
+        <label>Medical Record No.</label>
+        <input type="text" name="medical_record_no" />
+        
+        <label>Examination Date</label>
+        <input type="date" name="examination_date" />
+        
+        <label>Phone</label>
+        <input type="text" name="phone" />
+        
+        <label>Address</label>
+        <input type="text" name="address" />
+      
+        <div class="form-group">
+          <label class="required-field">Place of Residence</label>
+          <input type="text" name="residence" required />
+        </div>
+        
+        <div class="form-group">
+          <label class="required-field">Occupation</label>
+          <input type="text" name="occupation" required />
+          
+          <label class="required-field">Marital Status</label>
+          <select name="marital_status" required>
+            <option value="" selected disabled hidden>Select Status</option>
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+            <option value="Widowed">Widowed</option>
+          </select>
+        </div>
+      </section>
+
+      <!-- Admission Details -->
+      <section class="card">
+        <h2>Admission Details</h2>
+        <label class="required-field">Type of Admission</label>
+        <select name="admission_type" required>
+          <option value="" disabled selected>Select Type</option>
+          <option value="Emergency">Emergency</option>
+          <option value="Elective">Elective</option>
+          <option value="Transfer">Transfer</option>
+        </select>
+      
+        <div class="form-group">
+          <label class="required-field">Patient was admitted via</label>
+          <div class="radio-group">
+            <div class="radio-item">
+              <input type="radio" id="admission_er" name="admission_via" value="ER" required>
+              <label for="admission_er">Emergency</label>
+            </div>
+            <div class="radio-item">
+              <input type="radio" id="admission_opc" name="admission_via" value="OPC">
+              <label for="admission_opc">Outpatient Clinic</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="required-field">Date</label>
+          <input type="date" name="admission_date" required>
+        </div>
+
+        <div class="form-group">
+          <label class="required-field">Time</label>
+          <input type="time" name="admission_time" required>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Chief Complaint</h2>
+        <label>Description</label>
+        <input type="text" name="chief_complaint" />
+        
+        <label>Duration</label>
+        <input type="text" name="complaint_duration" />
+      </section>
+
+      <!-- General Appearance -->
+      <section class="card">
+        <h2>General Appearance</h2>
+        <label>Level of Consciousness</label>
+        <select name="consciousness_level">
+          <option value="Alert">Alert</option>
+          <option value="Drowsy">Drowsy</option>
+          <option value="Coma">Coma</option>
+        </select>
+        
+        <label>Distress Level</label>
+        <select name="distress_level">
+          <option value="None">None</option>
+          <option value="Mild">Mild</option>
+          <option value="Severe">Severe</option>
+        </select>
+        
+        <label>Posture</label>
+        <input type="text" name="posture" />
+        
+        <label>Gait</label>
+        <input type="text" name="gait" />
+        
+        <label>Nutrition</label>
+        <input type="text" name="nutrition" />
+        
+        <label>Hydration</label>
+        <input type="text" name="hydration" />
+        
+        <label>Facial Expression</label>
+        <input type="text" name="facial_expression" />
+      </section>
+                                                                                                                                                                                           
+      <!-- Vital Signs -->
+      <section class="card">
+        <h2>Vital Signs</h2>
+        <label>Blood Pressure (mmHg)</label>
+        <input type="text" name="blood_pressure" />
+        
+        <label>Heart Rate (bpm)</label>
+        <input type="number" name="heart_rate" />
+        
+        <label>Temperature (°C)</label>
+        <input type="number" name="temperature" />
+        
+        <label>Respiratory Rate</label>
+        <input type="number" name="respiratory_rate" />
+        
+        <label>Oxygen Saturation (%)</label>
+        <input type="number" name="oxygen_saturation" />
+        
+        <label>Weight (kg)</label>
+        <input type="number" name="weight" />
+        
+        <label>Height (cm)</label>
+        <input type="number" name="height" />
+        
+        <label>BMI</label>
+        <input type="number" name="bmi" />
+        
+        <label>Pain Score (0-10)</label>
+        <input type="number" min="0" max="10" name="pain_score" />
+      </section>
+
+      <!-- Skin & Mucosa -->
+      <section class="card">
+        <h2>Skin & Mucosa</h2>
+        <label>Skin Color</label>
+        <input type="text" name="skin_color" />
+        
+        <label>Skin Turgor</label>
+        <select name="skin_turgor">
+          <option value="Normal">Normal</option>
+          <option value="Decreased">Decreased</option>
+        </select>
+        
+        <label>Rashes</label>
+        <input type="text" name="rashes" />
+        
+        <label>Scars</label>
+        <input type="text" name="scars" />
+        
+        <label>Cyanosis</label>
+        <input type="text" name="cyanosis" />
+        
+        <label>Clubbing</label>
+        <input type="text" name="clubbing" />
+        
+        <label>Pallor</label>
+        <input type="text" name="pallor" />
+        
+        <label>Icterus</label>
+        <input type="text" name="icterus" />
+        
+        <label>Edema</label>
+        <input type="text" name="edema" />
+        
+        <label>Dehydration</label>
+        <input type="text" name="dehydration" />
+        
+        <label>Skin Lesions</label>
+        <input type="text" name="skin_lesions" />
+      </section>
+
+      <!-- Cardiovascular System -->
+      <section class="card">
+        <h2>Cardiovascular System</h2>
+        <label>Heart Sounds</label>
+        <select name="heart_sounds">
+          <option value="Normal">Normal</option>
+          <option value="Abnormal">Abnormal</option>
+        </select>
+        
+        <label>Murmurs</label>
+        <input type="text" name="murmurs" />
+        
+        <label>Apex Beat</label>
+        <input type="text" name="apex_beat" />
+        
+        <label>Thrills</label>
+        <input type="text" name="thrills" />
+        
+        <label>Heaves</label>
+        <input type="text" name="heaves" />
+        
+        <label>Peripheral Pulses</label>
+        <input type="text" name="peripheral_pulses" />
+        
+        <label>Capillary Refill Time</label>
+        <input type="text" name="capillary_refill_time" />
+        
+        <label>Jugular Venous Pressure</label>
+        <input type="text" name="jugular_venous_pressure" />
+      </section>
+
+      <!-- Respiratory System -->
+      <section class="card">
+        <h2>Respiratory System</h2>
+        <label>Chest Movement</label>
+        <select name="chest_movement">
+          <option value="Normal">Normal</option>
+          <option value="Asymmetric">Asymmetric</option>
+        </select>
+        
+        <label>Trachea Position</label>
+        <input type="text" name="trachea_position" />
+        
+        <label>Percussion Note</label>
+        <input type="text" name="percussion_note" />
+        
+        <label>Vocal Fremitus</label>
+        <input type="text" name="vocal_fremitus" />
+        
+        <label>Vocal Resonance</label>
+        <input type="text" name="vocal_resonance" />
+        
+        <label>Breath Sounds</label>
+        <input type="text" name="breath_sounds" />
+        
+        <label>Added Sounds</label>
+        <input type="text" name="added_sounds" />
+        
+        <label>Chest Pain</label>
+        <select name="chest_pain">
+          <option value="None">None</option>
+          <option value="Present">Present</option>
+        </select>
+        
+        <label>Cough</label>
+        <select name="cough">
+          <option value="None">None</option>
+          <option value="Dry">Dry</option>
+          <option value="Productive">Productive</option>
+        </select>
+      </section>
+
+      <!-- Abdomen -->
+      <section class="card">
+        <h2>Abdomen</h2>
+        <label>Tenderness</label>
+        <input type="text" name="abdominal_tenderness" />
+        
+        <label>Masses</label>
+        <input type="text" name="abdominal_masses" />
+        
+        <label>Bowel Sounds</label>
+        <select name="bowel_sounds">
+          <option value="Normal">Normal</option>
+          <option value="Hyperactive">Hyperactive</option>
+          <option value="Absent">Absent</option>
+        </select>
+        
+        <label>Organomegaly</label>
+        <input type="text" name="organomegaly" />
+        
+        <label>Ascites</label>
+        <input type="text" name="ascites" />
+        
+        <label>Hernia</label>
+        <input type="text" name="hernia" />
+        
+        <label>Bowel Movement</label>
+        <input type="text" name="bowel_movement" />
+        
+        <label>Liver Palpation</label>
+        <input type="text" name="liver_palpation" />
+        
+        <label>Spleen Palpation</label>
+        <input type="text" name="spleen_palpation" />
+      </section>
+
+      <!-- Neurological -->
+      <section class="card">
+        <h2>Neurological</h2>
+        <label>Higher Mental Functions</label>
+        <input type="text" name="higher_mental_functions" />
+        
+        <label>Cranial Nerve Assessment</label>
+        <input type="text" name="cranial_nerve_assessment" />
+        
+        <label>Motor Function</label>
+        <input type="text" name="motor_function" />
+        
+        <label>Sensory Function</label>
+        <input type="text" name="sensory_function" />
+        
+        <label>Reflexes</label>
+        <input type="text" name="reflexes" />
+        
+        <label>Cerebellar Signs</label>
+        <input type="text" name="cerebellar_signs" />
+        
+        <label>Meningeal Signs</label>
+        <input type="text" name="meningeal_signs" />
+        
+        <label>Gait</label>
+        <input type="text" name="neurological_gait" />
+      </section>
+
+      <!-- Other Local Exams -->
+      <section class="card">
+        <h2>Other Local Exams</h2>
+        <label>Musculoskeletal</label>
+        <input type="text" name="musculoskeletal" />
+        
+        <label>Lymph Nodes</label>
+        <input type="text" name="lymph_nodes" />
+        
+        <label>ENT</label>
+        <input type="text" name="ent_exam" />
+        
+        <label>Eyes</label>
+        <input type="text" name="eye_exam" />
+        
+        <label>Oral Cavity</label>
+        <input type="text" name="oral_cavity" />
+        
+        <label>Genitalia</label>
+        <input type="text" name="genitalia_exam" />
+        
+        <label>Rectal Exam</label>
+        <input type="text" name="rectal_exam" />
+      </section>
+
+      <!-- Notes -->
+      <section class="card">
+        <h2>Additional Notes & Plan</h2>
+        <label>Additional Findings</label>
+        <textarea name="additional_findings"></textarea>
+        
+        <label>Provisional Diagnosis</label>
+        <textarea name="provisional_diagnosis"></textarea>
+        
+        <label>Plan</label>
+        <textarea name="plan"></textarea>
+      </section>
+
+      <div class="actions">
+        <button id="save-btn" class="btn btn-primary">Save</button>
+        <button type="reset" class="btn btn-secondary">Reset</button>
+      </div>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 Ahmed Samy. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('save-btn').addEventListener('click', function (e) {
+      e.preventDefault();
+
+      // Validate required fields
+      const requiredFields = document.querySelectorAll('[required]');
+      let isValid = true;
+      
+      requiredFields.forEach(field => {
+        if (!field.value.trim()) {
+          field.style.borderColor = 'red';
+          isValid = false;
+        } else {
+          field.style.borderColor = '#ddd';
+        }
+      });
+
+      if (!isValid) {
+        alert('Please fill in all required fields (marked with *)');
+        return;
+      }
+
+      // Collect form data
+      const form = document.getElementById('patient-form');
+      const formData = new FormData(form);
+      const patient = {};
+
+      formData.forEach((value, key) => {
+        patient[key] = value;
+      });
+
+      // Add timestamp
+      patient.dateSaved = new Date().toLocaleString();
+
+      // Save to localStorage
+      let patients = JSON.parse(localStorage.getItem('patients') || '[]');
+      patients.push(patient);
+      localStorage.setItem('patients', JSON.stringify(patients));
+
+      // Redirect to patients page
+      window.location.href = 'patients.html';
+    });
+  </script>
+</body>
+</html>
